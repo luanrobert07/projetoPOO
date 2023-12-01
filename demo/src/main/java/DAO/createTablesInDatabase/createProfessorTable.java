@@ -121,4 +121,83 @@ public class createProfessorTable extends ConnectionDAO {
             }
         }
     }
+
+
+	public boolean excluirProfessor(int idProfessor) {
+    connectToDB();
+    String sqlExcluirProfessor = "DELETE FROM professor WHERE id = ?";
+    String sqlExcluirMagias = "DELETE FROM magia WHERE id_professor = ?";
+    
+    boolean sucesso = false;
+
+    try {
+        con.setAutoCommit(false);
+
+        try (PreparedStatement preparedStatementMagias = con.prepareStatement(sqlExcluirMagias)) {
+            preparedStatementMagias.setInt(1, idProfessor);
+            preparedStatementMagias.executeUpdate();
+        }
+
+        try (PreparedStatement preparedStatementProfessor = con.prepareStatement(sqlExcluirProfessor)) {
+            preparedStatementProfessor.setInt(1, idProfessor);
+            int linhasAfetadas = preparedStatementProfessor.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                sucesso = true;
+                con.commit();
+            } else {
+                System.out.println("Professor não encontrado para exclusão.");
+                con.rollback();
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Erro: " + e.getMessage());
+        try {
+            con.rollback();
+        } catch (SQLException rollbackException) {
+            System.out.println("Erro no rollback: " + rollbackException.getMessage());
+        }
+    } finally {
+        try {
+            con.setAutoCommit(true);  
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro ao fechar conexão: " + e.getMessage());
+        }
+    }
+    
+    return sucesso;
+}
+
+	public boolean atualizarProfessor(int idProfessor, String novoNome) {
+    connectToDB();
+    String sql = "UPDATE professor SET nome = ? WHERE id = ?";
+    
+    boolean sucesso = false;
+
+    try {
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        preparedStatement.setString(1, novoNome);
+        preparedStatement.setInt(2, idProfessor);
+
+        int linhasAfetadas = preparedStatement.executeUpdate();
+        
+        if (linhasAfetadas > 0) {
+            sucesso = true;
+        } else {
+            System.out.println("Professor não encontrado para atualização.");
+        }
+    } catch (SQLException e) {
+        System.out.println("Erro: " + e.getMessage());
+    } finally {
+        try {
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro ao fechar conexão: " + e.getMessage());
+        }
+    }
+    
+    return sucesso;
+	}
+
 }
