@@ -25,6 +25,9 @@ Projeto desenvolvido durante o segundo semestre de 2023 para as disciplinas de P
   - [x] Alunos poderão aprender habilidades
 - [x] Criação de Professores
   - [x] Relação de professores e as magias que ensinam
+  - [x] Mostrar professores
+  - [x] Atualizar professores
+  - [x] Deletar professores
 
 ---
 
