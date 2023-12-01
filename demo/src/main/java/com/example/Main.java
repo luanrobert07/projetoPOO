@@ -136,7 +136,9 @@ public class Main {
             System.out.println("8. Adicionar Magias na tabela");
             System.out.println("9. Mostrar Professores");
             System.out.println("10. Mostrar Magias e os professores que ensinam");
-            System.out.println("11. Sair");
+						 System.out.println("11. Excluir Professor");
+						 System.out.println("12. Atualizar Professor");
+            System.out.println("13. Sair");
     
             int opcao = scanner.nextInt();
             scanner.nextLine(); 
@@ -171,8 +173,36 @@ public class Main {
                     break;
                 case 10:
                     magiaTableCreator.mostrarMagiasEProfessores();
-                    break;                   
-                case 11:
+                    break;
+									case 11:
+		                System.out.println("Digite o ID do professor que deseja excluir:");
+		                int idProfessorParaExcluir = scanner.nextInt();
+		                boolean sucessoExclusao = professorTableCreator.excluirProfessor(idProfessorParaExcluir);
+		
+		                if (sucessoExclusao) {
+		                    System.out.println("Professor excluído com sucesso!");
+		                } else {
+		                    System.out.println("Falha ao excluir professor.");
+		                }
+                break;
+
+		            case 12:
+		                System.out.println("Digite o ID do professor que deseja atualizar:");
+		                int idProfessorParaAtualizar = scanner.nextInt();
+		                scanner.nextLine(); 
+		
+		                System.out.println("Digite o novo nome do professor:");
+		                String novoNomeProfessor = scanner.nextLine();
+		
+		                boolean sucessoAtualizacao = professorTableCreator.atualizarProfessor(idProfessorParaAtualizar, novoNomeProfessor);
+		
+		                if (sucessoAtualizacao) {
+		                    System.out.println("Professor atualizado com sucesso!");
+		                } else {
+		                    System.out.println("Falha ao atualizar professor.");
+		                }
+		                break;
+                case 13:
                     System.out.println("Bem-vindo à escola de magia e bruxaria de Hogwarts, jovem bruxo ou bruxa!");
                     System.out.println("Você acabou de atravessar a barreira da Plataforma 9 3/4 e embarcar no Hogwarts Express.");
                     System.out.println("O vapor da locomotiva escoa ao seu redor, enquanto o brilho da magia permeia o ar.");
