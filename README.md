@@ -19,8 +19,10 @@ Projeto desenvolvido durante o segundo semestre de 2023 para as disciplinas de P
 
 - [x] Criação de Usuários:
   - [x] Relação com Bruxos e alunos
+  - [x] Mostrar usuários
 - [x] Criação de Alunos
   - [x] Alunos terão relação com disciplinas
+  - [x] Mostrar Alunos
   - [x] Alunos poderão estudar
   - [x] Alunos poderão aprender habilidades
 - [x] Criação de Professores
